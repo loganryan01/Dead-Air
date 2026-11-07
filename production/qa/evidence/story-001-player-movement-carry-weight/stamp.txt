@@ -1,0 +1,5 @@
+Reviewed-Content-Hash: src/gameplay/player/movement_tuning.gd e9718f7efb4301f3f399b90a38039b6e2a11b152
+Reviewed-Content-Hash: src/gameplay/player/carry_weight.gd d8d85672200fe3e6c29ea44177a3280ee7861cb1
+Reviewed-Content-Hash: src/gameplay/player/player.gd faa89e32cc69bedb87ec4de82b313c0ddc16c3f9
+Reviewed-Content-Hash: src/gameplay/player/grey_box_room.tscn 3e0d6eeebd05bb2c270193d33796017b50a6950e
+Reviewed-Content-Hash: assets/data/movement_tuning.tres 9b2a49c793744f60947f784d9d44b2d91dd7e778
