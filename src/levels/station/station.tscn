@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene load_steps=29 format=3]
 
 [ext_resource type="Script" path="res://src/levels/station/station.gd" id="1_station"]
 [ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="2_player"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://src/gameplay/run/collapse_timer.gd" id="11_timer"]
 [ext_resource type="Resource" path="res://assets/data/station_tuning.tres" id="12_station_tuning"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/collapse_meter.tscn" id="13_collapse_meter"]
+[ext_resource type="Script" path="res://src/gameplay/run/run_state.gd" id="14_run_state"]
+[ext_resource type="PackedScene" path="res://src/ui/run_result/run_result.tscn" id="15_run_result"]
 
 [sub_resource type="BoxShape3D" id="floor_shape"]
 size = Vector3(12, 1, 60)
@@ -209,6 +211,11 @@ shape = SubResource("airlock_shape")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.45, 0)
 mesh = SubResource("airlock_mesh")
 surface_material_override/0 = SubResource("airlock_material")
+
+[node name="RunResult" parent="." instance=ExtResource("15_run_result")]
+
+[node name="RunState" type="Node" parent="."]
+script = ExtResource("14_run_state")
 
 [node name="Scrap1" parent="." instance=ExtResource("6_item")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, -8)

@@ -1,12 +1,12 @@
 # Story 005: Run end: cash-out or loss
 
 > **Epic**: Dead Air
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: N/A (minimal)
 > **Type**: Logic
 > **Estimate**: M
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: [set by /dev-story when implementation begins]
+> **Last Updated**: 2026-11-08
 
 ## Context
 
@@ -56,12 +56,13 @@
 
 ## Files
 
-- `src/gameplay/run/run_state.gd`
 - `src/gameplay/run/run_outcome.gd`
+- `src/gameplay/run/game_session.gd`
+- `src/gameplay/run/run_state.gd`
+- `src/ui/run_result/run_result.gd`
 - `src/ui/run_result/run_result.tscn`
-- `tests/unit/dead-air/run_end_test.gd`
-
----
+- `src/levels/station/station.gd`
+- `src/levels/station/station.tscn`
 
 ## QA Test Cases
 
@@ -84,3 +85,12 @@
 
 - Depends on: `production/epics/dead-air/story-002-air-supply-hud.md`, `production/epics/dead-air/story-004-station-airlock-collapse.md`
 - Unlocks: `production/epics/dead-air/story-006-shop-air-upgrade.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-11-08
+**Criteria**: 7/7 passing (none deferred)
+**Deviations**: `GameSession.total_cash` is a `static var`, against `.claude/rules/gameplay-code.md` (logged TD-001); Dive again button overflows the result panel (TD-002); result strings hardcoded, no `tr()` (TD-003); `run_state.gd` uses `get_node("../...")` string paths (TD-004); end conditions forced by probes, not played by hand.
+**Test Evidence**: waived at qa.level minimal; screenshots retained at `production/qa/evidence/story-005-run-end/`
+**Reviewed by**: self, no independent review
