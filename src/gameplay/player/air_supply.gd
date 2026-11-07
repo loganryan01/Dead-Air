@@ -18,10 +18,10 @@ var _tuning: AirTuning
 var _depleted: bool = false
 
 
-## Starts a run with full air as configured by tuning.
-func _init(tuning: AirTuning) -> void:
+## Starts a run with full air: tuning.starting_air plus an optional upgrade bonus.
+func _init(tuning: AirTuning, bonus: float = 0.0) -> void:
 	_tuning = tuning
-	maximum = tuning.starting_air
+	maximum = tuning.starting_air + bonus
 	air = maximum
 
 

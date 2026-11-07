@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeAirTuning" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/progression/upgrade_air_tuning.gd" id="1_upgrade"]
+
+[resource]
+script = ExtResource("1_upgrade")
+base_price = 50.0
+price_growth = 1.5
+air_bonus_per_level = 15.0
+max_level = 4

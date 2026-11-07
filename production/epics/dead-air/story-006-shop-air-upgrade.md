@@ -1,12 +1,12 @@
 # Story 006: Between-run shop and air upgrade
 
 > **Epic**: Dead Air
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: N/A (minimal)
 > **Type**: UI
 > **Estimate**: M
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: [set by /dev-story when implementation begins]
+> **Last Updated**: 2026-11-08
 
 ## Context
 
@@ -58,13 +58,21 @@
 
 ## Files
 
-- `src/ui/shop/shop.tscn`
+- `src/game/game.gd`
+- `src/game/game.tscn`
 - `src/ui/shop/shop.gd`
+- `src/ui/shop/shop.tscn`
 - `src/gameplay/progression/upgrades.gd`
+- `src/gameplay/progression/upgrade_air_tuning.gd`
 - `assets/data/upgrade_air.tres`
-- `tests/unit/dead-air/upgrades_test.gd`
-
----
+- `src/gameplay/run/game_session.gd`
+- `src/gameplay/run/run_state.gd`
+- `src/gameplay/player/air_supply.gd`
+- `src/gameplay/player/player.gd`
+- `src/levels/station/station.gd`
+- `src/ui/run_result/run_result.gd`
+- `src/ui/run_result/run_result.tscn`
+- `project.godot`
 
 ## QA Test Cases
 
@@ -87,3 +95,12 @@
 
 - Depends on: `production/epics/dead-air/story-005-run-end.md`
 - Unlocks: None
+
+---
+
+## Completion Notes
+**Completed**: 2026-11-08
+**Criteria**: 8/8 passing (none deferred)
+**Deviations**: Reworked story 001-005 code (player, air supply, station, run state, session, result screen, `project.godot` main scene), so earlier stories' evidence stamps are now older than their code; probes forced outcomes and set cash to 1000 to reach MAXED; mouse clicks on the shop unverified (TD-005); strings hardcoded (TD-003); standalone `station.tscn` result button does nothing (TD-006). Resolves TD-001 and TD-002.
+**Test Evidence**: screenshots retained at `production/qa/evidence/story-006-shop-air-upgrade/`
+**Reviewed by**: self, no independent review

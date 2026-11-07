@@ -10,6 +10,9 @@ extends CharacterBody3D
 ## Air tuning data (assets/data/air_tuning.tres).
 @export var air_tuning: AirTuning
 
+## Extra starting air from upgrades (story 006). Set before add_child; read in _ready.
+var air_bonus: float = 0.0
+
 ## Carry weight state. Other systems add/drop weight through this.
 var carry: CarryWeight = CarryWeight.new()
 
@@ -23,7 +26,7 @@ var air: AirSupply
 
 
 func _ready() -> void:
-	air = AirSupply.new(air_tuning)
+	air = AirSupply.new(air_tuning, air_bonus)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 

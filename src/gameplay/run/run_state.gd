@@ -7,6 +7,9 @@ extends Node
 ## Emitted exactly once per run, with the reason, cash banked this run and the new session total.
 signal run_ended(reason: RunOutcome.Reason, banked_value: float, total_cash: float)
 
+## Session that receives banked cash. Inject before add_child; a throwaway one is made if absent.
+var session: GameSession
+
 var _ended: bool = false
 
 @onready var _player: Player = get_node("../Player")
@@ -14,6 +17,8 @@ var _ended: bool = false
 
 
 func _ready() -> void:
+	if session == null:
+		session = GameSession.new()
 	var airlock: Airlock = get_node("../Airlock")
 	airlock.airlock_reached.connect(_end_run.bind(RunOutcome.Reason.AIRLOCK))
 	_player.air.air_depleted.connect(_end_run.bind(RunOutcome.Reason.AIR_DEPLETED))
@@ -25,11 +30,11 @@ func _end_run(reason: RunOutcome.Reason) -> void:
 		return
 	_ended = true
 	var banked: float = RunOutcome.banked_value(reason, _player.cargo.get_total_value())
-	GameSession.total_cash += banked
+	session.bank(banked)
 
 	_timer.set_process(false)
 	_player.set_physics_process(false)
 	_player.set_process_unhandled_input(false)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-	run_ended.emit(reason, banked, GameSession.total_cash)
+	run_ended.emit(reason, banked, session.total_cash)
