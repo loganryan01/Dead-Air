@@ -175,3 +175,14 @@ $RECYCLE.BIN/
 # the project root. Anchored so a reports/ folder elsewhere stays tracked.
 /reports/
 /test-results/
+
+# Added from the Dead-Air repo's GitHub Godot template (.godot/ omitted:
+# the rules above keep .godot/global_script_class_cache.cfg tracked).
+~*.dll
+.nomedia
+.import/
+export.cfg
+export_credentials.cfg
+.mono/
+data_*/
+mono_crash.*.json
