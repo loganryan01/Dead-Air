@@ -1,12 +1,12 @@
 # Story 004: Station layout, airlock and collapse timer
 
 > **Epic**: Dead Air
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: N/A (minimal)
 > **Type**: Integration
 > **Estimate**: L
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: [set by /dev-story when implementation begins]
+> **Last Updated**: 2026-11-07
 
 ## Context
 
@@ -61,11 +61,12 @@
 - `src/levels/station/station.tscn`
 - `src/levels/station/station.gd`
 - `src/levels/station/airlock.gd`
-- `src/gameplay/run/collapse_timer.gd`
+- `src/levels/station/station_tuning.gd`
 - `assets/data/station_tuning.tres`
-- `tests/integration/dead-air/station_collapse_test.gd`
-
----
+- `src/gameplay/run/collapse_timer.gd`
+- `src/ui/hud/collapse_meter.gd`
+- `src/ui/hud/collapse_meter.tscn`
+- `project.godot`
 
 ## QA Test Cases
 
@@ -88,3 +89,12 @@
 
 - Depends on: `production/epics/dead-air/story-003-salvage-pickups.md`
 - Unlocks: `production/epics/dead-air/story-005-run-end.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-11-07
+**Criteria**: 7/7 passing (none deferred)
+**Deviations**: Air (60 s at most) always runs out before the 180 s collapse, so the timer cannot decide a run with current tuning; collapse forced via a 0.05 s timer and the walk simulated with a held key, not played by hand; `project.godot` edited by hand for `run/main_scene` (Godot's import dropped the explicit `rendering_method` line); deeper-room salvage verified by scene positions, not on screen; `collapse_timer.gd` unguarded against an unassigned `tuning`.
+**Test Evidence**: waived at qa.level minimal; screenshots retained at `production/qa/evidence/story-004-station-airlock-collapse/`
+**Reviewed by**: self, no independent review

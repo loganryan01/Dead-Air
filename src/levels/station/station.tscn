@@ -1,0 +1,243 @@
+[gd_scene load_steps=27 format=3]
+
+[ext_resource type="Script" path="res://src/levels/station/station.gd" id="1_station"]
+[ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="2_player"]
+[ext_resource type="Resource" path="res://assets/data/movement_tuning.tres" id="3_tuning"]
+[ext_resource type="Resource" path="res://assets/data/air_tuning.tres" id="4_air_tuning"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/air_meter.tscn" id="5_air_meter"]
+[ext_resource type="PackedScene" path="res://src/gameplay/salvage/salvage_item.tscn" id="6_item"]
+[ext_resource type="Resource" path="res://assets/data/salvage_types/scrap_metal.tres" id="7_scrap"]
+[ext_resource type="Resource" path="res://assets/data/salvage_types/circuit_board.tres" id="8_circuit"]
+[ext_resource type="Resource" path="res://assets/data/salvage_types/reactor_core.tres" id="9_reactor"]
+[ext_resource type="Script" path="res://src/levels/station/airlock.gd" id="10_airlock"]
+[ext_resource type="Script" path="res://src/gameplay/run/collapse_timer.gd" id="11_timer"]
+[ext_resource type="Resource" path="res://assets/data/station_tuning.tres" id="12_station_tuning"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/collapse_meter.tscn" id="13_collapse_meter"]
+
+[sub_resource type="BoxShape3D" id="floor_shape"]
+size = Vector3(12, 1, 60)
+
+[sub_resource type="BoxMesh" id="floor_mesh"]
+size = Vector3(12, 1, 60)
+
+[sub_resource type="BoxShape3D" id="side_shape"]
+size = Vector3(1, 3, 61)
+
+[sub_resource type="BoxMesh" id="side_mesh"]
+size = Vector3(1, 3, 61)
+
+[sub_resource type="BoxShape3D" id="end_shape"]
+size = Vector3(14, 3, 1)
+
+[sub_resource type="BoxMesh" id="end_mesh"]
+size = Vector3(14, 3, 1)
+
+[sub_resource type="BoxShape3D" id="part_shape"]
+size = Vector3(4, 3, 1)
+
+[sub_resource type="BoxMesh" id="part_mesh"]
+size = Vector3(4, 3, 1)
+
+[sub_resource type="CapsuleShape3D" id="player_shape"]
+
+[sub_resource type="CapsuleMesh" id="player_mesh"]
+
+[sub_resource type="BoxShape3D" id="airlock_shape"]
+size = Vector3(6, 3, 6)
+
+[sub_resource type="BoxMesh" id="airlock_mesh"]
+size = Vector3(6, 0.1, 6)
+
+[sub_resource type="StandardMaterial3D" id="airlock_material"]
+albedo_color = Color(0.2, 0.9, 0.3, 1)
+
+[node name="Station" type="Node3D"]
+script = ExtResource("1_station")
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0.7, 0, -0.7, 0.7, 0, 5, -30)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -30)
+
+[node name="Shape" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("floor_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("floor_mesh")
+
+[node name="WallEast" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.5, -30)
+
+[node name="Shape" type="CollisionShape3D" parent="WallEast"]
+shape = SubResource("side_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="WallEast"]
+mesh = SubResource("side_mesh")
+
+[node name="WallWest" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.5, -30)
+
+[node name="Shape" type="CollisionShape3D" parent="WallWest"]
+shape = SubResource("side_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="WallWest"]
+mesh = SubResource("side_mesh")
+
+[node name="WallStart" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
+
+[node name="Shape" type="CollisionShape3D" parent="WallStart"]
+shape = SubResource("end_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="WallStart"]
+mesh = SubResource("end_mesh")
+
+[node name="WallEnd" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -60.5)
+
+[node name="Shape" type="CollisionShape3D" parent="WallEnd"]
+shape = SubResource("end_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="WallEnd"]
+mesh = SubResource("end_mesh")
+
+[node name="Door1Left" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, -12)
+
+[node name="Shape" type="CollisionShape3D" parent="Door1Left"]
+shape = SubResource("part_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Door1Left"]
+mesh = SubResource("part_mesh")
+
+[node name="Door1Right" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, -12)
+
+[node name="Shape" type="CollisionShape3D" parent="Door1Right"]
+shape = SubResource("part_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Door1Right"]
+mesh = SubResource("part_mesh")
+
+[node name="Door2Left" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, -24)
+
+[node name="Shape" type="CollisionShape3D" parent="Door2Left"]
+shape = SubResource("part_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Door2Left"]
+mesh = SubResource("part_mesh")
+
+[node name="Door2Right" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, -24)
+
+[node name="Shape" type="CollisionShape3D" parent="Door2Right"]
+shape = SubResource("part_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Door2Right"]
+mesh = SubResource("part_mesh")
+
+[node name="Door3Left" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, -36)
+
+[node name="Shape" type="CollisionShape3D" parent="Door3Left"]
+shape = SubResource("part_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Door3Left"]
+mesh = SubResource("part_mesh")
+
+[node name="Door3Right" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, -36)
+
+[node name="Shape" type="CollisionShape3D" parent="Door3Right"]
+shape = SubResource("part_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Door3Right"]
+mesh = SubResource("part_mesh")
+
+[node name="Door4Left" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, -48)
+
+[node name="Shape" type="CollisionShape3D" parent="Door4Left"]
+shape = SubResource("part_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Door4Left"]
+mesh = SubResource("part_mesh")
+
+[node name="Door4Right" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, -48)
+
+[node name="Shape" type="CollisionShape3D" parent="Door4Right"]
+shape = SubResource("part_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Door4Right"]
+mesh = SubResource("part_mesh")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
+script = ExtResource("2_player")
+tuning = ExtResource("3_tuning")
+air_tuning = ExtResource("4_air_tuning")
+
+[node name="Shape" type="CollisionShape3D" parent="Player"]
+shape = SubResource("player_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("player_mesh")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="AirMeter" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_air_meter")]
+player = NodePath("../Player")
+
+[node name="CollapseTimer" type="Node" parent="."]
+script = ExtResource("11_timer")
+tuning = ExtResource("12_station_tuning")
+
+[node name="CollapseMeter" parent="." instance=ExtResource("13_collapse_meter")]
+
+[node name="Airlock" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -55)
+script = ExtResource("10_airlock")
+
+[node name="Shape" type="CollisionShape3D" parent="Airlock"]
+shape = SubResource("airlock_shape")
+
+[node name="Marker" type="MeshInstance3D" parent="Airlock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.45, 0)
+mesh = SubResource("airlock_mesh")
+surface_material_override/0 = SubResource("airlock_material")
+
+[node name="Scrap1" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, -8)
+salvage_type = ExtResource("7_scrap")
+
+[node name="Scrap2" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.4, -6)
+salvage_type = ExtResource("7_scrap")
+
+[node name="Scrap3" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, -18)
+salvage_type = ExtResource("7_scrap")
+
+[node name="Circuit1" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.4, -20)
+salvage_type = ExtResource("8_circuit")
+
+[node name="Circuit2" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, -28)
+salvage_type = ExtResource("8_circuit")
+
+[node name="Circuit3" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.4, -32)
+salvage_type = ExtResource("8_circuit")
+
+[node name="Reactor1" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, -40)
+salvage_type = ExtResource("9_reactor")
+
+[node name="Reactor2" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.4, -44)
+salvage_type = ExtResource("9_reactor")
