@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AirTuning" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/player/air_tuning.gd" id="1_air"]
+
+[resource]
+script = ExtResource("1_air")
+starting_air = 60.0
+base_drain_per_second = 1.0
+load_multiplier = 2.0

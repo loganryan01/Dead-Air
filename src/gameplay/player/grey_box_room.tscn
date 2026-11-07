@@ -1,0 +1,114 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="1_player"]
+[ext_resource type="Resource" path="res://assets/data/movement_tuning.tres" id="2_tuning"]
+[ext_resource type="Resource" path="res://assets/data/air_tuning.tres" id="3_air_tuning"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/air_meter.tscn" id="4_air_meter"]
+[ext_resource type="PackedScene" path="res://src/gameplay/salvage/salvage_item.tscn" id="5_item"]
+[ext_resource type="Resource" path="res://assets/data/salvage_types/scrap_metal.tres" id="6_scrap"]
+[ext_resource type="Resource" path="res://assets/data/salvage_types/circuit_board.tres" id="7_circuit"]
+[ext_resource type="Resource" path="res://assets/data/salvage_types/reactor_core.tres" id="8_reactor"]
+
+[sub_resource type="BoxShape3D" id="floor_shape"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxMesh" id="floor_mesh"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="wall_shape"]
+size = Vector3(20, 3, 1)
+
+[sub_resource type="BoxMesh" id="wall_mesh"]
+size = Vector3(20, 3, 1)
+
+[sub_resource type="CapsuleShape3D" id="player_shape"]
+
+[sub_resource type="CapsuleMesh" id="player_mesh"]
+
+[node name="GreyBoxRoom" type="Node3D"]
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0.7, 0, -0.7, 0.7, 0, 5, 0)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("floor_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("floor_mesh")
+
+[node name="WallNorth" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10.5)
+
+[node name="Shape" type="CollisionShape3D" parent="WallNorth"]
+shape = SubResource("wall_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="WallNorth"]
+mesh = SubResource("wall_mesh")
+
+[node name="WallSouth" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 10.5)
+
+[node name="Shape" type="CollisionShape3D" parent="WallSouth"]
+shape = SubResource("wall_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="WallSouth"]
+mesh = SubResource("wall_mesh")
+
+[node name="WallEast" type="StaticBody3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 10.5, 1.5, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="WallEast"]
+shape = SubResource("wall_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="WallEast"]
+mesh = SubResource("wall_mesh")
+
+[node name="WallWest" type="StaticBody3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -10.5, 1.5, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="WallWest"]
+shape = SubResource("wall_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="WallWest"]
+mesh = SubResource("wall_mesh")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_player")
+tuning = ExtResource("2_tuning")
+air_tuning = ExtResource("3_air_tuning")
+
+[node name="Shape" type="CollisionShape3D" parent="Player"]
+shape = SubResource("player_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("player_mesh")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="AirMeter" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_air_meter")]
+player = NodePath("../Player")
+
+[node name="Scrap1" parent="." instance=ExtResource("5_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, -3)
+salvage_type = ExtResource("6_scrap")
+
+[node name="Scrap2" parent="." instance=ExtResource("5_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.4, -5)
+salvage_type = ExtResource("6_scrap")
+
+[node name="Circuit1" parent="." instance=ExtResource("5_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -6)
+salvage_type = ExtResource("7_circuit")
+
+[node name="Circuit2" parent="." instance=ExtResource("5_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.4, 3)
+salvage_type = ExtResource("7_circuit")
+
+[node name="Reactor1" parent="." instance=ExtResource("5_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.4, 4)
+salvage_type = ExtResource("8_reactor")
