@@ -1,12 +1,12 @@
 # Story 003: Salvage pickups
 
 > **Epic**: Dead Air
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: N/A (minimal)
 > **Type**: Integration
 > **Estimate**: M
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: [set by /dev-story when implementation begins]
+> **Last Updated**: 2026-11-07
 
 ## Context
 
@@ -56,13 +56,17 @@
 
 ## Files
 
+- `src/gameplay/salvage/salvage_type.gd`
 - `src/gameplay/salvage/salvage_item.gd`
 - `src/gameplay/salvage/salvage_item.tscn`
 - `src/gameplay/player/cargo.gd`
-- `assets/data/salvage_types/` (one resource per type)
-- `tests/integration/dead-air/salvage_pickup_test.gd`
-
----
+- `assets/data/salvage_types/scrap_metal.tres`
+- `assets/data/salvage_types/circuit_board.tres`
+- `assets/data/salvage_types/reactor_core.tres`
+- `src/gameplay/player/player.gd`
+- `src/gameplay/player/movement_tuning.gd`
+- `assets/data/movement_tuning.tres`
+- `src/gameplay/player/grey_box_room.tscn`
 
 ## QA Test Cases
 
@@ -85,3 +89,12 @@
 
 - Depends on: `production/epics/dead-air/story-001-player-movement-carry-weight.md`, `production/epics/dead-air/story-002-air-supply-hud.md`
 - Unlocks: `production/epics/dead-air/story-004-station-airlock-collapse.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-11-07
+**Criteria**: 6/6 passing (none deferred)
+**Deviations**: Removed the R/F debug keys and `debug_weight_step` from story-001 files (planned in story 001's notes; stories 001 and 002 evidence stamps are now older than that code); probe placed the player on the item rather than walking with WASD; pickup radius (0.5) lives in the scene, not a data file; carried weight and value are not shown on screen yet.
+**Test Evidence**: waived at qa.level minimal; screenshots retained at `production/qa/evidence/story-003-salvage-pickups/`
+**Reviewed by**: self, no independent review

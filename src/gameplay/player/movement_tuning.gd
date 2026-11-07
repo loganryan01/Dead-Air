@@ -17,5 +17,3 @@ extends Resource
 @export var gravity_scale: float = 1.0
 ## Mouse look sensitivity in radians per pixel.
 @export var mouse_sensitivity: float = 0.003
-## Weight added or removed per press of the grey-box debug keys (R / F).
-@export var debug_weight_step: float = 10.0

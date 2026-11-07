@@ -3,7 +3,6 @@ extends CharacterBody3D
 ## First-person player with carry-weight-scaled movement.
 ## Implements: design/game-brief.md MVP feature 1; story-001-player-movement-carry-weight.
 ## Controls: WASD move, mouse look, Esc releases the mouse (click recaptures).
-## Grey-box debug only: R adds weight, F drops weight (stand-in until salvage pickups, story 003).
 
 ## Tuning data (assets/data/movement_tuning.tres).
 @export var tuning: MovementTuning
@@ -13,6 +12,9 @@ extends CharacterBody3D
 
 ## Carry weight state. Other systems add/drop weight through this.
 var carry: CarryWeight = CarryWeight.new()
+
+## Carried salvage value total (story 003). Salvage pickups add to this.
+var cargo: Cargo = Cargo.new()
 
 ## Air supply state (story 002). Created in _ready; drains faster with carry weight.
 var air: AirSupply
@@ -36,10 +38,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		match event.physical_keycode:
 			KEY_ESCAPE:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			KEY_R:
-				carry.add_weight(tuning.debug_weight_step)
-			KEY_F:
-				carry.drop_weight(tuning.debug_weight_step)
 
 
 func _physics_process(delta: float) -> void:

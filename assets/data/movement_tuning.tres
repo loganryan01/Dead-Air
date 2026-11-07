@@ -10,4 +10,3 @@ max_weight = 100.0
 curve_exponent = 1.0
 gravity_scale = 1.0
 mouse_sensitivity = 0.003
-debug_weight_step = 10.0
