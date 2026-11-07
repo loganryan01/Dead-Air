@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="1_player"]
 [ext_resource type="Resource" path="res://assets/data/movement_tuning.tres" id="2_tuning"]
+[ext_resource type="Resource" path="res://assets/data/air_tuning.tres" id="3_air_tuning"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/air_meter.tscn" id="4_air_meter"]
 
 [sub_resource type="BoxShape3D" id="floor_shape"]
 size = Vector3(20, 1, 20)
@@ -73,6 +75,7 @@ mesh = SubResource("wall_mesh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_player")
 tuning = ExtResource("2_tuning")
+air_tuning = ExtResource("3_air_tuning")
 
 [node name="Shape" type="CollisionShape3D" parent="Player"]
 shape = SubResource("player_shape")
@@ -82,3 +85,6 @@ mesh = SubResource("player_mesh")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="AirMeter" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_air_meter")]
+player = NodePath("../Player")

@@ -1,0 +1,7 @@
+Reviewed-Content-Hash: src/gameplay/player/air_tuning.gd 4f2b5b368a128e1472e65d27bcb96fddf76a6ecd
+Reviewed-Content-Hash: src/gameplay/player/air_supply.gd d72d118143380a91e42750cbfdf909618fd54221
+Reviewed-Content-Hash: src/ui/hud/air_meter.gd bf66316385574c19390b7848a0431143dcc70e49
+Reviewed-Content-Hash: src/ui/hud/air_meter.tscn 895474daa7fcd1ae8b7d662e152c85846f36afbf
+Reviewed-Content-Hash: assets/data/air_tuning.tres 0d6ffb81d47ba374f47a2a54eef669c30460c03e
+Reviewed-Content-Hash: src/gameplay/player/player.gd e88ebdfb610b72243520a0037dfd3b976b42884a
+Reviewed-Content-Hash: src/gameplay/player/grey_box_room.tscn 59dcea3e01e2129ec37d023f9cac1924f1275186

@@ -1,12 +1,12 @@
 # Story 002: Air supply drain and HUD meter
 
 > **Epic**: Dead Air
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: N/A (minimal)
 > **Type**: Logic
 > **Estimate**: M
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: [set by /dev-story when implementation begins]
+> **Last Updated**: 2026-11-07
 
 ## Context
 
@@ -58,13 +58,13 @@
 
 ## Files
 
+- `src/gameplay/player/air_tuning.gd`
 - `src/gameplay/player/air_supply.gd`
 - `src/ui/hud/air_meter.gd`
 - `src/ui/hud/air_meter.tscn`
 - `assets/data/air_tuning.tres`
-- `tests/unit/dead-air/air_supply_test.gd`
-
----
+- `src/gameplay/player/player.gd`
+- `src/gameplay/player/grey_box_room.tscn`
 
 ## QA Test Cases
 
@@ -87,3 +87,12 @@
 
 - Depends on: `production/epics/dead-air/story-001-player-movement-carry-weight.md`
 - Unlocks: `production/epics/dead-air/story-003-salvage-pickups.md`, `production/epics/dead-air/story-005-run-end.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-11-07
+**Criteria**: 7/7 passing (none deferred)
+**Deviations**: Edited story-001 files `player.gd` and `grey_box_room.tscn` (story 001's evidence stamp is now older than that code); half and empty screenshots came from ticking the supply directly, not a live run; HUD meter is default grey and uses fixed pixel offsets (polish step); `max_weight` of 0 and unassigned `air_tuning` or `player` are unguarded.
+**Test Evidence**: waived at qa.level minimal; screenshots retained at `production/qa/evidence/story-002-air-supply-hud/`
+**Reviewed by**: self, no independent review

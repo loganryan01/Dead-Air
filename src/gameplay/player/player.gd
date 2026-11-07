@@ -8,13 +8,20 @@ extends CharacterBody3D
 ## Tuning data (assets/data/movement_tuning.tres).
 @export var tuning: MovementTuning
 
+## Air tuning data (assets/data/air_tuning.tres).
+@export var air_tuning: AirTuning
+
 ## Carry weight state. Other systems add/drop weight through this.
 var carry: CarryWeight = CarryWeight.new()
+
+## Air supply state (story 002). Created in _ready; drains faster with carry weight.
+var air: AirSupply
 
 @onready var _camera: Camera3D = $Camera3D
 
 
 func _ready() -> void:
+	air = AirSupply.new(air_tuning)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
@@ -36,6 +43,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	air.tick(delta, carry.weight, tuning.max_weight)
+
 	if not is_on_floor():
 		velocity += get_gravity() * tuning.gravity_scale * delta
 
