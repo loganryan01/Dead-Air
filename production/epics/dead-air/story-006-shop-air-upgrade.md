@@ -87,7 +87,7 @@
 **Story Type**: UI
 **Required evidence**: retained screenshot of each shop state in `production/qa/evidence/`
 
-**Status**: [ ] Not yet created
+**Status**: [x] Present — screenshots retained in `production/qa/evidence/story-006-shop-air-upgrade/`
 
 ---
 
