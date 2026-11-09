@@ -1,12 +1,12 @@
 # Story 009: Station art pass
 
 > **Epic**: Dead Air
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: N/A (minimal)
 > **Type**: Visual/Feel
 > **Estimate**: L
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: [set by /dev-story when implementation begins]
+> **Last Updated**: 2026-11-09
 
 ## Context
 
@@ -63,14 +63,14 @@
 - `src/levels/station/station.tscn`
 - `src/levels/station/station.gd`
 - `src/levels/station/station_tuning.gd`
+- `src/levels/station/emergency_light.gd`
 - `assets/data/station_tuning.tres`
-- `src/levels/station/emergency_light.gd` (new)
 - `src/gameplay/salvage/salvage_item.gd`
-- `src/gameplay/salvage/salvage_item.tscn`
 - `src/gameplay/salvage/salvage_type.gd`
-- `assets/data/salvage_types/*.tres`
-
----
+- `assets/data/salvage_types/scrap_metal.tres`
+- `assets/data/salvage_types/circuit_board.tres`
+- `assets/data/salvage_types/reactor_core.tres`
+- `src/levels/station/emergency_light.gd.uid`
 
 ## QA Test Cases
 
@@ -93,3 +93,12 @@
 
 - Depends on: `production/epics/dead-air/story-004-station-airlock-collapse.md`, `production/epics/dead-air/story-008-hud-polish.md`
 - Unlocks: `production/epics/dead-air/story-010-breathing-station-audio.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-11-09
+**Criteria**: 7/8 passing (flicker feel and exact light/fog/alarm tuning DEFERRED to a playtest)
+**Deviations**: ADVISORY: noise frequency (1.0) and amplitude scale (1.2) are hardcoded in `emergency_light.gd`. Out of scope, for awareness: `.godot/global_script_class_cache.cfg` changed by the Godot import.
+**Test Evidence**: waived at qa.level minimal; retained screenshots in `production/qa/evidence/story-009-station-art-pass/` and sign-off in `production/qa/evidence/story-009-station-art-pass-evidence.md`
+**Reviewed by**: self, no independent review

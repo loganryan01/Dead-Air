@@ -8,3 +8,4 @@ display_name = "Scrap Metal"
 value = 10.0
 weight = 5.0
 color = Color(0.6, 0.6, 0.65, 1)
+glow_energy = 0.6

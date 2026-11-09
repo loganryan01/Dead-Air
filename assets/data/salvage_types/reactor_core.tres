@@ -8,3 +8,4 @@ display_name = "Reactor Core"
 value = 150.0
 weight = 30.0
 color = Color(1, 0.55, 0.1, 1)
+glow_energy = 6.0

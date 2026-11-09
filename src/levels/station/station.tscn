@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene load_steps=41 format=3]
 
 [ext_resource type="Script" path="res://src/levels/station/station.gd" id="1_station"]
 [ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="2_player"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" path="res://src/ui/run_result/run_result.tscn" id="15_run_result"]
 [ext_resource type="Resource" path="res://assets/data/hud_tuning.tres" id="16_hud_tuning"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/cargo_readout.tscn" id="17_cargo_readout"]
+[ext_resource type="Script" path="res://src/levels/station/emergency_light.gd" id="18_emergency_light"]
 
 [sub_resource type="BoxShape3D" id="floor_shape"]
 size = Vector3(12, 1, 60)
@@ -53,13 +54,55 @@ size = Vector3(6, 3, 6)
 size = Vector3(6, 0.1, 6)
 
 [sub_resource type="StandardMaterial3D" id="airlock_material"]
-albedo_color = Color(0.2, 0.9, 0.3, 1)
+albedo_color = Color(0.05, 0.25, 0.2, 1)
+emission_enabled = true
+emission = Color(0.2, 1, 0.8, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="StandardMaterial3D" id="mat_floor"]
+albedo_color = Color(0.07, 0.07, 0.08, 1)
+metallic = 0.3
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="mat_wall"]
+albedo_color = Color(0.11, 0.11, 0.13, 1)
+metallic = 0.2
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="mat_door"]
+albedo_color = Color(0.15, 0.09, 0.06, 1)
+metallic = 0.4
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="mat_prop"]
+albedo_color = Color(0.09, 0.09, 0.1, 1)
+metallic = 0.3
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="mat_trim"]
+albedo_color = Color(0.1, 0.05, 0.02, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0.1, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="Environment" id="station_env"]
+background_mode = 1
+ambient_light_source = 2
+fog_enabled = true
+
+[sub_resource type="BoxMesh" id="unit_box"]
+
+[sub_resource type="CylinderMesh" id="unit_cyl"]
+radial_segments = 8
+rings = 1
+
+[sub_resource type="PrismMesh" id="unit_prism"]
 
 [node name="Station" type="Node3D"]
 script = ExtResource("1_station")
 
-[node name="Light" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7, 0.7, 0, -0.7, 0.7, 0, 5, -30)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("station_env")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -30)
@@ -69,6 +112,7 @@ shape = SubResource("floor_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("floor_mesh")
+material_override = SubResource("mat_floor")
 
 [node name="WallEast" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.5, -30)
@@ -78,6 +122,7 @@ shape = SubResource("side_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="WallEast"]
 mesh = SubResource("side_mesh")
+material_override = SubResource("mat_wall")
 
 [node name="WallWest" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.5, -30)
@@ -87,6 +132,7 @@ shape = SubResource("side_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="WallWest"]
 mesh = SubResource("side_mesh")
+material_override = SubResource("mat_wall")
 
 [node name="WallStart" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
@@ -96,6 +142,7 @@ shape = SubResource("end_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="WallStart"]
 mesh = SubResource("end_mesh")
+material_override = SubResource("mat_wall")
 
 [node name="WallEnd" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -60.5)
@@ -105,6 +152,7 @@ shape = SubResource("end_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="WallEnd"]
 mesh = SubResource("end_mesh")
+material_override = SubResource("mat_wall")
 
 [node name="Door1Left" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, -12)
@@ -114,6 +162,7 @@ shape = SubResource("part_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Door1Left"]
 mesh = SubResource("part_mesh")
+material_override = SubResource("mat_door")
 
 [node name="Door1Right" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, -12)
@@ -123,6 +172,7 @@ shape = SubResource("part_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Door1Right"]
 mesh = SubResource("part_mesh")
+material_override = SubResource("mat_door")
 
 [node name="Door2Left" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, -24)
@@ -132,6 +182,7 @@ shape = SubResource("part_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Door2Left"]
 mesh = SubResource("part_mesh")
+material_override = SubResource("mat_door")
 
 [node name="Door2Right" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, -24)
@@ -141,6 +192,7 @@ shape = SubResource("part_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Door2Right"]
 mesh = SubResource("part_mesh")
+material_override = SubResource("mat_door")
 
 [node name="Door3Left" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, -36)
@@ -150,6 +202,7 @@ shape = SubResource("part_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Door3Left"]
 mesh = SubResource("part_mesh")
+material_override = SubResource("mat_door")
 
 [node name="Door3Right" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, -36)
@@ -159,6 +212,7 @@ shape = SubResource("part_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Door3Right"]
 mesh = SubResource("part_mesh")
+material_override = SubResource("mat_door")
 
 [node name="Door4Left" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.5, -48)
@@ -168,6 +222,7 @@ shape = SubResource("part_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Door4Left"]
 mesh = SubResource("part_mesh")
+material_override = SubResource("mat_door")
 
 [node name="Door4Right" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, -48)
@@ -177,6 +232,281 @@ shape = SubResource("part_shape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Door4Right"]
 mesh = SubResource("part_mesh")
+material_override = SubResource("mat_door")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="R1Rib1" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(12, 0, 0, 0, 0.3, 0, 0, 0, 0.5, 0, 2.85, -3)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R1Rib2" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(12, 0, 0, 0, 0.3, 0, 0, 0, 0.5, 0, 2.85, -6)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R1Rib3" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(12, 0, 0, 0, 0.3, 0, 0, 0, 0.5, 0, 2.85, -9)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R1PillarE" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.8, 0, 0, 0, 3, 0, 0, 0, 0.8, 5.6, 1.5, -4)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R1PillarW" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.8, 0, 0, 0, 3, 0, 0, 0, 0.8, -5.6, 1.5, -8)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R2CrateA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 5.1, 0.8, -15)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R2CrateB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 5.2, 2.2, -15)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R2CrateC" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.4, 0, 0, 0, 1, 0, 0, 0, 2, -5.1, 0.5, -17)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R2CrateD" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -5, 0.9, -21)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R2CrateE" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0.5, -21.5)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R2CrateF" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -4.4, 0.4, -14)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R3PipeEHigh" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.5, 0, 0, 0, 0, -0.5, 0, 11, 0, 5.3, 2.5, -30)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R3PipeELow" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.3, 0, 0, 0, 0, -0.3, 0, 11, 0, 5.3, 1.7, -30)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R3PipeW" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.35, 0, 0, 0, 0, -0.35, 0, 11, 0, -5.3, 1.8, -30)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R3PostEA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.6, 0, 0, 0, 3, 0, 0, 0, 0.6, 5.5, 1.5, -26)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R3PostEB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.6, 0, 0, 0, 3, 0, 0, 0, 0.6, 5.5, 1.5, -34)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R3PostWA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.6, 0, 0, 0, 3, 0, 0, 0, 0.6, -5.5, 1.5, -26)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R3PostWB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.6, 0, 0, 0, 3, 0, 0, 0, 0.6, -5.5, 1.5, -34)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R4ColumnE" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(2.2, 0, 0, 0, 3, 0, 0, 0, 2.2, 4.9, 1.5, -42)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R4RingE" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(2.4, 0, 0, 0, 0.12, 0, 0, 0, 2.4, 4.9, 2.2, -42)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_trim")
+
+[node name="R4WedgeEA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.6, 0, 0, 0, 1.2, 0, 0, 0, 1.6, 5.1, 0.6, -38.5)
+mesh = SubResource("unit_prism")
+material_override = SubResource("mat_prop")
+
+[node name="R4WedgeEB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.6, 0, 0, 0, 1.2, 0, 0, 0, 1.6, 5.1, 0.6, -46)
+mesh = SubResource("unit_prism")
+material_override = SubResource("mat_prop")
+
+[node name="R4ColumnW" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(2.2, 0, 0, 0, 3, 0, 0, 0, 2.2, -4.9, 1.5, -42)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_prop")
+
+[node name="R4RingW" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(2.4, 0, 0, 0, 0.12, 0, 0, 0, 2.4, -4.9, 2.2, -42)
+mesh = SubResource("unit_cyl")
+material_override = SubResource("mat_trim")
+
+[node name="R4WedgeWA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.6, 0, 0, 0, 1.2, 0, 0, 0, 1.6, -5.1, 0.6, -38.5)
+mesh = SubResource("unit_prism")
+material_override = SubResource("mat_prop")
+
+[node name="R4WedgeWB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.6, 0, 0, 0, 1.2, 0, 0, 0, 1.6, -5.1, 0.6, -46)
+mesh = SubResource("unit_prism")
+material_override = SubResource("mat_prop")
+
+[node name="R5ConsoleEA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 2, 5.2, 0.5, -51)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R5ConsoleEB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 2, 5.2, 0.5, -58)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R5ScreenEA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 0.05, 0, 0, 0, 0.8, 5.2, 1.03, -51)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="R5ScreenEB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 0.05, 0, 0, 0, 0.8, 5.2, 1.03, -58)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="R5GatePostE" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.35, 0, 0, 0, 3, 0, 0, 0, 0.35, 3.4, 1.5, -51.5)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R5ConsoleWA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 2, -5.2, 0.5, -51)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R5ConsoleWB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 2, -5.2, 0.5, -58)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R5ScreenWA" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 0.05, 0, 0, 0, 0.8, -5.2, 1.03, -51)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="R5ScreenWB" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 0.05, 0, 0, 0, 0.8, -5.2, 1.03, -58)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="R5GatePostW" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.35, 0, 0, 0, 3, 0, 0, 0, 0.35, -3.4, 1.5, -51.5)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R5GateLintel" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(7.2, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 2.8, -51.5)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_prop")
+
+[node name="R5GateStrip" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(6.4, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 2.55, -51.5)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="Door1Lintel" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(4.4, 0, 0, 0, 0.6, 0, 0, 0, 1.2, 0, 2.7, -12)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_door")
+
+[node name="Door1Strip" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(3.8, 0, 0, 0, 0.06, 0, 0, 0, 1, 0, 2.38, -12)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="Door2Lintel" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(4.4, 0, 0, 0, 0.6, 0, 0, 0, 1.2, 0, 2.7, -24)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_door")
+
+[node name="Door2Strip" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(3.8, 0, 0, 0, 0.06, 0, 0, 0, 1, 0, 2.38, -24)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="Door3Lintel" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(4.4, 0, 0, 0, 0.6, 0, 0, 0, 1.2, 0, 2.7, -36)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_door")
+
+[node name="Door3Strip" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(3.8, 0, 0, 0, 0.06, 0, 0, 0, 1, 0, 2.38, -36)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="Door4Lintel" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(4.4, 0, 0, 0, 0.6, 0, 0, 0, 1.2, 0, 2.7, -48)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_door")
+
+[node name="Door4Strip" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(3.8, 0, 0, 0, 0.06, 0, 0, 0, 1, 0, 2.38, -48)
+mesh = SubResource("unit_box")
+material_override = SubResource("mat_trim")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Room1Light" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -6)
+script = ExtResource("18_emergency_light")
+
+[node name="Room2LightA" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -15)
+script = ExtResource("18_emergency_light")
+flickers = true
+
+[node name="Room2LightB" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -21)
+script = ExtResource("18_emergency_light")
+
+[node name="Room3LightA" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -28)
+script = ExtResource("18_emergency_light")
+
+[node name="Room3LightB" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -33)
+script = ExtResource("18_emergency_light")
+flickers = true
+
+[node name="Room4LightA" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -40)
+script = ExtResource("18_emergency_light")
+flickers = true
+
+[node name="Room4LightB" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -45)
+script = ExtResource("18_emergency_light")
+
+[node name="Room5Light" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -50)
+script = ExtResource("18_emergency_light")
+
+[node name="AirlockLight" type="OmniLight3D" parent="Lights" groups=["emergency_lights"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, -55)
+script = ExtResource("18_emergency_light")
+airlock = true
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
