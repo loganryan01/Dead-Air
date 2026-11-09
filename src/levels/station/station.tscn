@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3]
+[gd_scene load_steps=33 format=3]
 
 [ext_resource type="Script" path="res://src/levels/station/station.gd" id="1_station"]
 [ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="2_player"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" path="res://src/ui/hud/collapse_meter.tscn" id="13_collapse_meter"]
 [ext_resource type="Script" path="res://src/gameplay/run/run_state.gd" id="14_run_state"]
 [ext_resource type="PackedScene" path="res://src/ui/run_result/run_result.tscn" id="15_run_result"]
+[ext_resource type="Resource" path="res://assets/data/jetpack.tres" id="16_jetpack"]
+[ext_resource type="Resource" path="res://assets/data/salvage_types/prototype_drive.tres" id="17_drive"]
 
 [sub_resource type="BoxShape3D" id="floor_shape"]
 size = Vector3(12, 1, 60)
@@ -39,6 +41,12 @@ size = Vector3(4, 3, 1)
 
 [sub_resource type="BoxMesh" id="part_mesh"]
 size = Vector3(4, 3, 1)
+
+[sub_resource type="BoxShape3D" id="ledge_shape"]
+size = Vector3(4, 0.5, 4)
+
+[sub_resource type="BoxMesh" id="ledge_mesh"]
+size = Vector3(4, 0.5, 4)
 
 [sub_resource type="CapsuleShape3D" id="player_shape"]
 
@@ -181,6 +189,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
 script = ExtResource("2_player")
 tuning = ExtResource("3_tuning")
 air_tuning = ExtResource("4_air_tuning")
+jetpack_tuning = ExtResource("16_jetpack")
 
 [node name="Shape" type="CollisionShape3D" parent="Player"]
 shape = SubResource("player_shape")
@@ -248,3 +257,29 @@ salvage_type = ExtResource("9_reactor")
 [node name="Reactor2" parent="." instance=ExtResource("6_item")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.4, -44)
 salvage_type = ExtResource("9_reactor")
+
+[node name="Ledge1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.25, -18)
+
+[node name="Shape" type="CollisionShape3D" parent="Ledge1"]
+shape = SubResource("ledge_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Ledge1"]
+mesh = SubResource("ledge_mesh")
+
+[node name="LedgeDrive1" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.9, -18)
+salvage_type = ExtResource("17_drive")
+
+[node name="Ledge2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.25, -42)
+
+[node name="Shape" type="CollisionShape3D" parent="Ledge2"]
+shape = SubResource("ledge_shape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Ledge2"]
+mesh = SubResource("ledge_mesh")
+
+[node name="LedgeDrive2" parent="." instance=ExtResource("6_item")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.9, -42)
+salvage_type = ExtResource("17_drive")

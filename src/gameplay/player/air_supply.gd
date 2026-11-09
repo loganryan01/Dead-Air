@@ -31,13 +31,16 @@ func announce() -> void:
 
 
 ## Drains air for delta seconds at the rate for the given carry weight.
+## extra_drain_per_second is added to the load-based rate (e.g. jetpack fuel burn).
 ## Does nothing once air is depleted.
-func tick(delta: float, carry_weight: float, max_weight: float) -> void:
+func tick(
+	delta: float, carry_weight: float, max_weight: float, extra_drain_per_second: float = 0.0
+) -> void:
 	if _depleted:
 		return
 	var rate: float = drain_per_second(
 		carry_weight, max_weight, _tuning.base_drain_per_second, _tuning.load_multiplier
-	)
+	) + extra_drain_per_second
 	air = maxf(air - rate * delta, 0.0)
 	air_changed.emit(air, maximum)
 	if air <= 0.0:
