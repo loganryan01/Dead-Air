@@ -28,3 +28,6 @@ Movement and weight, then air drain, then salvage and airlock, then collapse tim
 | 004 | Station layout, airlock and collapse timer | Integration | Complete | N/A |
 | 005 | Run end: cash-out or loss | Logic | Complete | N/A |
 | 006 | Between-run shop and air upgrade | UI | Complete | N/A |
+| 008 | HUD polish | UI | Complete | N/A |
+| 009 | Station art pass | Visual/Feel | Ready | N/A |
+| 010 | Breathing and station audio | Integration | Ready | N/A |
