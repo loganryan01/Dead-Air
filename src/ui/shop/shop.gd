@@ -8,13 +8,13 @@ signal buy_requested
 ## Emitted when the player presses Dive.
 signal dive_requested
 
-@onready var _cash: Label = $Center/Panel/Box/Cash
-@onready var _level: Label = $Center/Panel/Box/Level
-@onready var _bonus: Label = $Center/Panel/Box/Bonus
-@onready var _price: Label = $Center/Panel/Box/Price
-@onready var _reason: Label = $Center/Panel/Box/Reason
-@onready var _buy: Button = $Center/Panel/Box/Buy
-@onready var _dive: Button = $Center/Panel/Box/Dive
+@onready var _cash: Label = $Root/Center/Panel/Box/Cash
+@onready var _level: Label = $Root/Center/Panel/Box/Level
+@onready var _bonus: Label = $Root/Center/Panel/Box/Bonus
+@onready var _price: Label = $Root/Center/Panel/Box/Price
+@onready var _reason: Label = $Root/Center/Panel/Box/Reason
+@onready var _buy: Button = $Root/Center/Panel/Box/Buy
+@onready var _dive: Button = $Root/Center/Panel/Box/Dive
 
 
 func _ready() -> void:

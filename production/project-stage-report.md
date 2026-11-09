@@ -38,7 +38,9 @@ UX specs and sprint plans are not gaps at this tier.
    `Status` line (about the test file, not the story) read `Not yet created`;
    it now records the waiver and the retained screenshot.
 3. **Build-order step 6 open.** `assets/` holds only `.tres` data — no art or
-   audio yet.
+   audio yet. Planned 2026-11-09 as stories 008 (HUD polish), 009 (station art
+   pass, in-engine) and 010 (breathing and station audio, user-supplied files)
+   on branch `feat/step6-hud-art-audio`.
 4. **Configured stage.** `project.yaml` says `Concept`; advance it to
    `Production` by hand if wanted (no gate does it at this tier).
 
