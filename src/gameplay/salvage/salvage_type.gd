@@ -12,3 +12,5 @@ extends Resource
 @export var weight: float = 5.0
 ## Tint of the grey-box mesh.
 @export var color: Color = Color.WHITE
+## Emission energy of the item's glow (higher reads richer/more valuable).
+@export_range(0.0, 16.0, 0.1) var glow_energy: float = 1.0
