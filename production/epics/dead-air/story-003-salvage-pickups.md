@@ -81,7 +81,7 @@
 **Story Type**: Integration
 **Required evidence**: `tests/integration/dead-air/salvage_pickup_test.gd` OR a playtest note (advisory at `qa.level: minimal`)
 
-**Status**: [ ] Not yet created
+**Status**: [x] Automated test waived (qa.level minimal) — screenshot retained in `production/qa/evidence/story-003-salvage-pickups/`
 
 ---
 

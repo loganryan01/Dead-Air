@@ -75,7 +75,7 @@
 **Story Type**: Logic
 **Required evidence**: `tests/unit/dead-air/movement_weight_test.gd` (advisory at `qa.level: minimal`)
 
-**Status**: [ ] Not yet created
+**Status**: [x] Automated test waived (qa.level minimal) — screenshot retained in `production/qa/evidence/story-001-player-movement-carry-weight/`
 
 ---
 

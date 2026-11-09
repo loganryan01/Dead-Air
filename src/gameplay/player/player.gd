@@ -1,20 +1,14 @@
 class_name Player
 extends CharacterBody3D
 ## First-person player with carry-weight-scaled movement.
-## Implements: design/game-brief.md MVP feature 1; story-001-player-movement-carry-weight;
-## story-007-jetpack (hold Space to fire the jetpack; it burns extra air).
-## Controls: WASD move, Space jetpack, mouse look, Esc releases the mouse (click recaptures).
-## The jetpack lives in _physics_process, so it stops when the run ends
-## (RunState disables physics processing on the player).
+## Implements: design/game-brief.md MVP feature 1; story-001-player-movement-carry-weight.
+## Controls: WASD move, mouse look, Esc releases the mouse (click recaptures).
 
 ## Tuning data (assets/data/movement_tuning.tres).
 @export var tuning: MovementTuning
 
 ## Air tuning data (assets/data/air_tuning.tres).
 @export var air_tuning: AirTuning
-
-## Jetpack tuning data (assets/data/jetpack.tres).
-@export var jetpack_tuning: JetpackTuning
 
 ## Extra starting air from upgrades (story 006). Set before add_child; read in _ready.
 var air_bonus: float = 0.0
@@ -50,19 +44,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var thrust: float = Jetpack.thrust(jetpack_tuning, carry.weight)
-	var firing: bool = Jetpack.is_firing(Input.is_action_pressed("jetpack"), thrust, air.air)
-	air.tick(
-		delta, carry.weight, tuning.max_weight,
-		jetpack_tuning.extra_air_per_second if firing else 0.0
-	)
+	air.tick(delta, carry.weight, tuning.max_weight)
 
-	# Gravity also applies while firing on the floor so the net lift is thrust minus gravity.
-	if firing or not is_on_floor():
+	if not is_on_floor():
 		velocity += get_gravity() * tuning.gravity_scale * delta
-
-	if firing:
-		velocity.y += thrust * delta
 
 	var input_dir: Vector2 = Vector2(
 		float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)),

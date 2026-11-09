@@ -79,7 +79,7 @@
 **Story Type**: Logic
 **Required evidence**: `tests/unit/dead-air/air_supply_test.gd` (advisory at `qa.level: minimal`); retained screenshot of the HUD meter in `production/qa/evidence/`
 
-**Status**: [ ] Not yet created
+**Status**: [x] Automated test waived (qa.level minimal) — screenshot retained in `production/qa/evidence/story-002-air-supply-hud/`
 
 ---
 

@@ -77,7 +77,7 @@
 **Story Type**: Logic
 **Required evidence**: `tests/unit/dead-air/run_end_test.gd` (advisory at `qa.level: minimal`); retained screenshot of the result screen in `production/qa/evidence/`
 
-**Status**: [ ] Not yet created
+**Status**: [x] Automated test waived (qa.level minimal) — screenshot retained in `production/qa/evidence/story-005-run-end/`
 
 ---
 

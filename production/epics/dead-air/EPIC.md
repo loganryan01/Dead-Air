@@ -22,10 +22,9 @@ Movement and weight, then air drain, then salvage and airlock, then collapse tim
 
 | # | Story | Type | Status | ADR |
 |---|-------|------|--------|-----|
-| 001 | Player movement with carry weight | Logic | Ready | N/A |
-| 002 | Air supply drain and HUD meter | Logic | Ready | N/A |
-| 003 | Salvage pickups | Integration | Ready | N/A |
-| 004 | Station layout, airlock and collapse timer | Integration | Ready | N/A |
-| 005 | Run end: cash-out or loss | Logic | Ready | N/A |
-| 006 | Between-run shop and air upgrade | UI | Ready | N/A |
-| 007 | Jetpack | Integration | Ready | N/A |
+| 001 | Player movement with carry weight | Logic | Complete | N/A |
+| 002 | Air supply drain and HUD meter | Logic | Complete | N/A |
+| 003 | Salvage pickups | Integration | Complete | N/A |
+| 004 | Station layout, airlock and collapse timer | Integration | Complete | N/A |
+| 005 | Run end: cash-out or loss | Logic | Complete | N/A |
+| 006 | Between-run shop and air upgrade | UI | Complete | N/A |
