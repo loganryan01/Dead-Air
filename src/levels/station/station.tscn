@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3]
+[gd_scene load_steps=31 format=3]
 
 [ext_resource type="Script" path="res://src/levels/station/station.gd" id="1_station"]
 [ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="2_player"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" path="res://src/ui/hud/collapse_meter.tscn" id="13_collapse_meter"]
 [ext_resource type="Script" path="res://src/gameplay/run/run_state.gd" id="14_run_state"]
 [ext_resource type="PackedScene" path="res://src/ui/run_result/run_result.tscn" id="15_run_result"]
+[ext_resource type="Resource" path="res://assets/data/hud_tuning.tres" id="16_hud_tuning"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/cargo_readout.tscn" id="17_cargo_readout"]
 
 [sub_resource type="BoxShape3D" id="floor_shape"]
 size = Vector3(12, 1, 60)
@@ -193,12 +195,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [node name="AirMeter" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_air_meter")]
 player = NodePath("../Player")
+tuning = ExtResource("16_hud_tuning")
+
+[node name="CargoReadout" parent="." node_paths=PackedStringArray("player") instance=ExtResource("17_cargo_readout")]
+player = NodePath("../Player")
 
 [node name="CollapseTimer" type="Node" parent="."]
 script = ExtResource("11_timer")
 tuning = ExtResource("12_station_tuning")
 
 [node name="CollapseMeter" parent="." instance=ExtResource("13_collapse_meter")]
+tuning = ExtResource("16_hud_tuning")
 
 [node name="Airlock" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -55)

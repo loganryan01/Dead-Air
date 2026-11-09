@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HudTuning" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/ui/hud/hud_tuning.gd" id="1_hud"]
+
+[resource]
+script = ExtResource("1_hud")
+low_air_fraction = 0.4
+critical_air_fraction = 0.2
+pulse_hz = 2.0
+collapse_final_seconds = 30.0
+normal_color = Color(1, 0.69, 0.2, 1)
+low_color = Color(1, 0.45, 0.1, 1)
+critical_color = Color(0.9, 0.15, 0.1, 1)
+collapse_final_color = Color(0.9, 0.15, 0.1, 1)

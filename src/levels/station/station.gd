@@ -12,11 +12,13 @@ signal run_closed
 @onready var _meter: CollapseMeter = $CollapseMeter
 @onready var _run_state: RunState = $RunState
 @onready var _result: RunResult = $RunResult
+@onready var _cargo_readout: CargoReadout = $CargoReadout
 
 
 func _ready() -> void:
-	_timer.time_changed.connect(_meter.show_time)
+	_timer.time_changed.connect(_meter.show_time.bind(_timer.tuning.collapse_seconds))
 	_run_state.run_ended.connect(_result.show_result)
+	_run_state.run_ended.connect(_cargo_readout.clear.unbind(3))
 	_result.continue_pressed.connect(run_closed.emit)
 
 

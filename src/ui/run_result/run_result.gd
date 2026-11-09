@@ -6,11 +6,11 @@ extends CanvasLayer
 ## Emitted when the player presses the continue button.
 signal continue_pressed
 
-@onready var _headline: Label = $Center/Panel/Box/Headline
-@onready var _reason: Label = $Center/Panel/Box/Reason
-@onready var _banked: Label = $Center/Panel/Box/Banked
-@onready var _total: Label = $Center/Panel/Box/Total
-@onready var _button: Button = $Center/Panel/Box/Continue
+@onready var _headline: Label = $Root/Center/Panel/Box/Headline
+@onready var _reason: Label = $Root/Center/Panel/Box/Reason
+@onready var _banked: Label = $Root/Center/Panel/Box/Banked
+@onready var _total: Label = $Root/Center/Panel/Box/Total
+@onready var _button: Button = $Root/Center/Panel/Box/Continue
 
 
 func _ready() -> void:
