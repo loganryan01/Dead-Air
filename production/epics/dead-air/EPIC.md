@@ -28,4 +28,3 @@ Movement and weight, then air drain, then salvage and airlock, then collapse tim
 | 004 | Station layout, airlock and collapse timer | Integration | Ready | N/A |
 | 005 | Run end: cash-out or loss | Logic | Ready | N/A |
 | 006 | Between-run shop and air upgrade | UI | Ready | N/A |
-| 007 | Jetpack | Integration | Ready | N/A |
