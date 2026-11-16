@@ -79,7 +79,7 @@
 **Story Type**: Integration
 **Required evidence**: `tests/integration/dead-air/station_audio_test.gd` OR a playtest note in `production/qa/evidence/` (advisory at `qa.level: minimal`)
 
-**Status**: [ ] Not yet created
+**Status**: [x] Advisory at `qa.level: minimal` — no integration test or written playtest note; `.wav` capture and screenshot retained in `production/qa/evidence/story-010-breathing-station-audio/`
 
 ---
 
