@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3]
+[gd_scene load_steps=44 format=3]
 
 [ext_resource type="Script" path="res://src/levels/station/station.gd" id="1_station"]
 [ext_resource type="Script" path="res://src/gameplay/player/player.gd" id="2_player"]
@@ -18,6 +18,9 @@
 [ext_resource type="Resource" path="res://assets/data/hud_tuning.tres" id="16_hud_tuning"]
 [ext_resource type="PackedScene" path="res://src/ui/hud/cargo_readout.tscn" id="17_cargo_readout"]
 [ext_resource type="Script" path="res://src/levels/station/emergency_light.gd" id="18_emergency_light"]
+[ext_resource type="Script" path="res://src/audio/breathing.gd" id="19_breathing"]
+[ext_resource type="Script" path="res://src/audio/station_creaks.gd" id="20_creaks"]
+[ext_resource type="Resource" path="res://assets/data/audio_tuning.tres" id="21_audio_tuning"]
 
 [sub_resource type="BoxShape3D" id="floor_shape"]
 size = Vector3(12, 1, 60)
@@ -553,6 +556,19 @@ surface_material_override/0 = SubResource("airlock_material")
 
 [node name="RunState" type="Node" parent="."]
 script = ExtResource("14_run_state")
+
+[node name="Breathing" type="Node" parent="." node_paths=PackedStringArray("player", "run_state")]
+script = ExtResource("19_breathing")
+player = NodePath("../Player")
+tuning = ExtResource("21_audio_tuning")
+hud_tuning = ExtResource("16_hud_tuning")
+run_state = NodePath("../RunState")
+
+[node name="StationCreaks" type="Node" parent="." node_paths=PackedStringArray("collapse_timer", "run_state")]
+script = ExtResource("20_creaks")
+collapse_timer = NodePath("../CollapseTimer")
+tuning = ExtResource("21_audio_tuning")
+run_state = NodePath("../RunState")
 
 [node name="Scrap1" parent="." instance=ExtResource("6_item")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, -8)
