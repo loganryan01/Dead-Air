@@ -1,12 +1,12 @@
 # Story 010: Breathing and station audio
 
 > **Epic**: Dead Air
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: N/A (minimal)
 > **Type**: Integration
 > **Estimate**: M
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: [set by /dev-story when implementation begins]
+> **Last Updated**: 2026-11-16
 
 ## Context
 
@@ -58,16 +58,13 @@
 
 ## Files
 
+- `src/audio/audio_tuning.gd` (new)
 - `src/audio/breathing.gd` (new)
 - `src/audio/station_creaks.gd` (new)
-- `src/audio/audio_tuning.gd` (new)
 - `assets/data/audio_tuning.tres` (new)
 - `default_bus_layout.tres` (new)
-- `src/levels/station/station.tscn`
-- `assets/audio/` (user-supplied files)
-- `tests/unit/dead-air/audio_curves_test.gd` (advisory at `qa.level: minimal`)
-
----
+- `src/levels/station/station.tscn` (modified)
+- `assets/audio/` (user-supplied: breathing_loop.ogg, creak_1..3.ogg)
 
 ## QA Test Cases
 
@@ -90,3 +87,10 @@
 
 - Depends on: `production/epics/dead-air/story-002-air-supply-hud.md`, `production/epics/dead-air/story-004-station-airlock-collapse.md`, `production/epics/dead-air/story-009-station-art-pass.md`
 - Unlocks: None
+
+## Completion Notes
+**Completed**: 2026-11-16
+**Criteria**: 7/7 passing (no playtest note written; creak, load and low-air behaviour confirmed by the user in the build)
+**Deviations**: Added a "Station" bus for creaks (not in the story). Files outside `## Files`: `project.godot` (earlier uncommitted change), `.godot/global_script_class_cache.cfg` (class cache), `production/qa/evidence/story-010-breathing-station-audio/`. Exit-time Ogg leak appears only under `--write-movie`; not a project bug.
+**Test Evidence**: waived at qa.level minimal; retained frame and station.wav in `production/qa/evidence/story-010-breathing-station-audio/`
+**Reviewed by**: self, no independent review
