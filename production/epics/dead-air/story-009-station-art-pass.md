@@ -85,7 +85,7 @@
 **Story Type**: Visual/Feel
 **Required evidence**: retained screenshot of each room, the airlock and the alarm state in `production/qa/evidence/` + sign-off in `production/qa/evidence/story-009-station-art-pass-evidence.md`
 
-**Status**: [ ] Not yet created
+**Status**: [x] Present — screenshots retained in `production/qa/evidence/story-009-station-art-pass/`; sign-off in `production/qa/evidence/story-009-station-art-pass-evidence.md`
 
 ---
 

@@ -87,7 +87,7 @@
 **Story Type**: UI
 **Required evidence**: retained screenshot of each screen touched (HUD at full, low and critical air; collapse final seconds; run result; shop) in `production/qa/evidence/`
 
-**Status**: [ ] Not yet created
+**Status**: [x] Present — screenshots retained in `production/qa/evidence/story-008-hud-polish/`
 
 ---
 
